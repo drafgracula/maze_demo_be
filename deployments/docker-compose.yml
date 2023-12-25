@@ -1,0 +1,14 @@
+version: '3'
+services:
+  mazego:
+    build:
+      context: .
+      dockerfile: golang/Dockerfile
+    ports:
+      - "1080:8080"
+    depends_on:
+      - db
+  mazemongo:
+    image: mongo:latest
+    ports:
+      - "27027:27017"
