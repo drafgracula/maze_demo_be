@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Renderer</title>
+</head>
+<body>
+<canvas id="mazeCanvas" width="1024" height="1024"></canvas>
+<textarea id="jsonInput" rows="10" cols="30"></textarea>
+<button onclick="renderMaze()">Render Maze</button>
+
+<script>
+    const canvas = document.getElementById('mazeCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function renderMaze() {
+        const jsonData = document.getElementById('jsonInput').value.trim();
+        try {
+            const mazeData = JSON.parse(jsonData);
+
+            if (mazeData && mazeData.size && mazeData.content) {
+                const mazeSize = mazeData.size;
+                const cellSize = canvas.width / mazeSize;
+
+                // Clear the canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Render the maze based on the content data
+                for (const key in mazeData.content) {
+                    if (mazeData.content.hasOwnProperty(key)) {
+                        const [x, y] = key.split('.').map(Number);
+                        const cellValue = mazeData.content[key];
+
+                        if (cellValue === "1") {
+                            ctx.fillStyle = 'black';
+                        } else {
+                            ctx.fillStyle = 'white';
+                        }
+
+                        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Error parsing JSON:', error);
+        }
+    }
+
+    function generateRandomMazeContent(size) {
+        const content = {};
+        for (let x = 0; x < size; x++) {
+            for (let y = 0; y < size; y++) {
+                const key = `${x}.${y}`;
+                const cellValue = Math.random() < 0.3 ? "1" : "0"; // Adjust the probability as needed
+                content[key] = cellValue;
+            }
+        }
+        return content;
+    }
+
+    const mazeSize = 64;
+    const content = generateRandomMazeContent(mazeSize);
+    const testJson = {
+        "size": mazeSize,
+        "content": content
+    };
+
+    console.log(JSON.stringify(testJson));
+</script>
+</body>
+</html>

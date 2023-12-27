@@ -1,0 +1,10 @@
+version: "3"
+services:
+  maze_go:
+    build:
+      context: app
+      dockerfile: Dockerfile
+    ports:
+      - "8880:8080" # Adjust the port as needed
+    volumes:
+      - ./app:/app
