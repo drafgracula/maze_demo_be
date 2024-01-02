@@ -1,0 +1,14 @@
+run:
+  concurrency: 4
+  timeout: 2m
+  issues-exit-code: 2
+  tests: true
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
