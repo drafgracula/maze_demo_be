@@ -1,10 +1,10 @@
 # Makefile for running Go script in Docker
 
 # Define a variable for the project name
-PROJECT_NAME := my-golang-app
+PROJECT_NAME := maze_demo
 
 # Define a variable for the path to the Docker Compose file
-COMPOSE_FILE := deployments/docker-compose.yml
+COMPOSE_FILE := docker/docker-compose.yml
 
 # Build the Docker container
 build:
